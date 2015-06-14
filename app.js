@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//var server = require('./server.js').server;
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -16,7 +14,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.listen(3000);
+var port = 8080;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -61,5 +59,9 @@ app.use(function(err, req, res, next) {
 });
 
 
+
+app.listen(port, function () {
+	console.log('started listening on port ' + port);
+});
 
 module.exports = app;
