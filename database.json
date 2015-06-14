@@ -1,0 +1,19 @@
+{
+		"test": {
+			"driver": "sqlite3",
+			"filename": "/var/tmp/qmon.test.sqlite"
+		},
+		
+		"dev": {
+			"driver": "sqlite3",
+			"filename": "/var/tmp/qmon.dev.sqlite"
+		},
+		
+		"production": {
+			"driver": "mysql",
+			"host": "localhost",
+			"user": "root",
+			"password": "root",
+			"database": "qmon"
+		}
+}
