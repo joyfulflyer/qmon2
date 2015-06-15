@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbSession = require('../src/dbSession.js');
+var bodyParser = require('body-parser');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -14,7 +15,6 @@ router.get('/', function(req, res, next) {
 			res.json(rows);
 		}
 	});
-//  res.send('respond with a resource');
 });
 
 router.post('/' function(req, res, next) {
