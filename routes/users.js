@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 		} else {
 			console.log(rows);
 			res.json(rows);
+			next(req, res);
 		}
 	});
 });
@@ -20,6 +21,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 	console.log('poast' + req.body);
+	next(req, res);
 });
 
 module.exports = router;

@@ -2,43 +2,85 @@
 <html ng-app="app">
 	<head>
 		<title>Qmon2</title>
-		<style>
-			
-		</style>
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="css/app.css">
+<!--		<script src="bower_components/angular/angular.js"></script> -->
 	</head>
 
 	<body>
-		<div id="main">
-			we need:
-			time
-			last updated (from zendesk)
-			queue information
-			support table
-			acts table
-			alert image
-			picture
-			
-			
-			<div id="users">
-				<form>
-					<input 
-						type="text"
-						placeholder="put stuff here"
-					>
-					<button />
-				</form>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8">
+					queue information
+				</div>
 			</div>
-			list of users (for editing)
-			add user
-			this should be popup
+			<div class="row" id="main-row">
+				<div class="col-md-4">
+					support partial
+				</div>
+				<div class="col-md-4">
+					act partial
+				</div>
+				<div class="col-md-2">
+					alert
+				</div>
+				<div class="col-md-2">
+					picture
+				</div>
+			</div>
 			
-			aside: need a basic api page (can be json) that shows the info we have from zendesk and how old it is
+			
+			<div id="call status">
+				call status main div
+				 2 partials, one for support, one for acts
 			
 			
+			
+			
+			</div>
+			
+			<div id="alert">
+				the alert image goes here
+			</div>
+			
+			<div id="picture">
+				the picture goes here
+			</div>
+			
+			<div id="main">
+				we need:
+				time
+				last updated (from zendesk)
+				queue information
+				support table
+				acts table
+				alert image
+				picture
+				
+				
+				<div class="modal-content" id="users">
+					<div class="form-group">
+					<form>
+							<input 
+								type="text"
+								placeholder="put stuff here"
+							>
+							<button class="btn btn-default" type="button">Press me</button>
+						</form>
+					</div>
+				</div>
+				list of users (for editing)
+				add user
+				this should be popup
+				
+				aside: need a basic api page (can be json) that shows the info we have from zendesk and how old it is
+				
+				
+			</div>
+		
+			Hello!
+
+
 		</div>
-	
-		Hello!
-
-
 	</body>
 </html>
