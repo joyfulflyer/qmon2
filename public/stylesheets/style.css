@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+#queuetime {
+	color: #fff;
+	font-size: 1.2em;
+}
+
+#queue {
+	font-size: 3.5em;
+}

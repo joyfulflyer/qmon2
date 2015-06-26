@@ -3,16 +3,16 @@
 	<head>
 		<title>Qmon2</title>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
 		<script src="bower_components/angular/angular.js"></script>
-		<script src="javscripts/app.js"></script>
+		<script src="javascripts/app.js"></script>
 	</head>
 
 	<body>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8">
-					queue information
+					<div id=queue>queue information</div>
 				</div>
 			</div>
 			<div class="row" id="main-row">
@@ -31,7 +31,7 @@
 			</div>
 			
 			
-			
+			<br><br><br>
 			<div id="main">
 				we need:
 				time
@@ -43,7 +43,7 @@
 				picture
 				
 				
-				<div class="modal-content" id="users">
+				<div class="modal-content" id="users" class="hidden">
 					<div class="form-group">
 					<form>
 							<input 
