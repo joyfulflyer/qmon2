@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="qmon">
 	<head>
 		<title>Qmon2</title>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="stylesheets/style.css">
 		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="javascripts/controllers.js"></script>
 		<script src="javascripts/app.js"></script>
 	</head>
 
@@ -16,16 +18,18 @@
 				</div>
 			</div>
 			<div class="row" id="main-row">
-				<div class="col-md-4">
-					support partial
+				<div class="col-md-3" ng-controller="UserCtrl">
+					<div ng-repeat="user in users">
+						<span>{{user.name}} {{user.type}}</span>
+					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					act partial
 				</div>
 				<div class="col-md-2">
 					alert
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<div id=picture>
 						<img src="img/holder"/>
 					</div>

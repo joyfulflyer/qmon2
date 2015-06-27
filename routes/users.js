@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 router.get('/', function(req, res, next) {
 	dbSession.fetchAll('SELECT * FROM users', function(err, rows) {
 		if (err) {
-			//console.log(err);
+			console.log('error:' + err);
 			err.status = 500;
 			next(err);
 		} else {

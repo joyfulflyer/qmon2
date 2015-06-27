@@ -4,6 +4,7 @@
 
 var qmon = angular.module('qmon', [
   'ngRoute',
+  'qmonControllers'
 ]);
 
 qmon.config(['$routeProvider', 
