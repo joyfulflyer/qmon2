@@ -4,11 +4,17 @@
 
 var qmon = angular.module('qmon', [
   'ngRoute',
-  'qmonControllers'
+  "angularGrid",
+  
+  'qmonControllers'  
 ]);
 
 qmon.config(['$routeProvider', 
 	function($routeProvider) {
-		$routeProvider.otherwise({redirectTo: '/'});
+		$routeProvider.
+		when('/users', {
+			templateUrl: 'partials/usersModal.html',
+			controller: 'UserCtrl'
+		}).otherwise({redirectTo: '/'});
 	}
 ]);

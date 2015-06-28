@@ -4,11 +4,13 @@
 		<title>Qmon2</title>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="bower_components/ag-grid/dist/angular-grid.css">
 		
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/ag-grid/dist/angular-grid.js"></script>
 		<script src="javascripts/controllers.js"></script>
 		<script src="javascripts/app.js"></script>
 	</head>
@@ -23,6 +25,23 @@
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body" ng-controller="UserCtrl">
+					<button type="button" class="btn btn-warning" ng-click="updateUser()">ah</button>
+					<div ag-grid="gridOptions" style="width: 100%; height: 200px"></div>					<div> --- </div>
+					<table class="">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Role</th>
+								<th>External ID</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in users">
+								<th>{{user.name}}</th>
+								<th>{{user.type}}</th>
+								<th>{{user.external_id || "none"}}</th>
+							</tr>
+					</table>
 					<div ng-repeat="user in users">
 						<span>{{user}}</span>
 					</div>
@@ -36,7 +55,7 @@
 		</div>
 	</div>
 	
-	
+	<!-- END MODALS -->
 
 	<body>
 		<div class="container-fluid">
@@ -56,7 +75,8 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					act partial
+					<div ng-controller="UserCtrl" ag-grid="gridOptions" style="width: 100%; height: 200px" class="table"></div>
+					<br>act partial
 				</div>
 				<div class="col-md-2">
 					alert
