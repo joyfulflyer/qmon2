@@ -4,11 +4,39 @@
 		<title>Qmon2</title>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="stylesheets/style.css">
+		
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
 		<script src="javascripts/controllers.js"></script>
 		<script src="javascripts/app.js"></script>
 	</head>
+	
+	
+	<!-- Modals -->
+	
+	<div class="modal fade" id="usersModal" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body" ng-controller="UserCtrl">
+					<div ng-repeat="user in users">
+						<span>{{user}}</span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					entry forms
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 
 	<body>
 		<div class="container-fluid">
@@ -36,6 +64,8 @@
 					picture
 				</div>
 			</div>
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#usersModal"> Modal? </button>
+			
 			
 			
 			<br><br><br>
@@ -74,5 +104,5 @@
 
 
 		</div>
-	</body>
+	</body>	
 </html>
