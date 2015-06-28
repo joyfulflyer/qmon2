@@ -21,21 +21,48 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 		$scope.gridOptions = {
 			columnDefs: [
-				{headerName: "Name", field: "name"},
-				{headerName: "Role", field: "type"},
-				{headerName: "External ID", field: "external_id"},
+				{headerName: "Name", field: "name", width: '50%'},
+				{headerName: "Role", field: "type", width: "50"},
+				{headerName: "External ID", field: "external_id", width: "50"},
 				{
 					headerName: '', 
-					templateUrl: '/partials/userEditButtons.html', 
+	//				cellRenderer: saveButtonCellRenderer, 
+					templateUrl: 'partials/userEditButtons.html',
 					enableCellEdit: false, 
-					sortable: false
+					sortable: false,
+					width: "60"
+				},
+				{
+					headerName: '',
+					cellRenderer: deleteButtonCellRenderer,
+					enableCellEdit: false,
+					sortable: false,
+					width: "60"
 				}
 			],
 			rowData: null,
+			angularCompileRows: true,
 			enableCellEdit: true,
 			enableSorting: true,
 			enableColumnResize: true,
 		};
+		
+		function deleteButtonCellRenderer(params) {
+			params.$scope.deleteClicked = function (user) {
+				console.log("deleteing!");
+			}
+			return '<button class="btn btn-warning btn-sm" ng-click="deleteClicked(row.entity)">Delete</button>';
+		}
+		
+		function saveButtonCellRenderer(params) {
+			console.log(params);
+			params.$scope.saveClicked = function(user) {
+				console.log(params);
+				console.log('save clicked');
+				console.log(user);
+			};
+			return '<button class="btn btn-primary btn-sm" ng-click="saveClicked(data)">Save</button>';
+		}
 		
 	}
 ]);
