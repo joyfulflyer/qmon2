@@ -3,6 +3,7 @@ var router = express.Router();
 var dbSession = require('../src/dbSession.js');
 var bodyParser = require('body-parser');
 
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	dbSession.fetchAll('SELECT * FROM users', function(err, rows) {
@@ -21,6 +22,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 	console.log('poast' + req.body);
+	console.log(req.body);
+	res.json(req.body);
 	next(req, res);
 });
 
