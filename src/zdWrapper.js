@@ -5,7 +5,6 @@ var dbSession = require('../src/dbSession.js');
 var bodyParser = require('body-parser');
 var https = require('https');
 
-
 var zdWrapper = {};
 //maybe I'm too java but I think I want a zdWrapper object to carry around, is that what i'm doing?
 zdWrapper.connect = function(org, user, key, callback) {
@@ -15,27 +14,44 @@ zdWrapper.connect = function(org, user, key, callback) {
 	
 	zdWrapper.basePath = '/api/v2';
 	zdWrapper.hostname = org + '.zendesk.com';
-	zdWrapper.auth = user + '/token:' + key; //I hope this is right
+	zdWrapper.auth = user + '/token:' + key;
 	zdWrapper.headers = {
 		Accept: 'application/json'
 	}
 	console.log('set some variables');
 	console.log(zdWrapper);
+	startPollingQueueStatus();
 	callback();
 }
 
-zdWrapper.getQueueStatus = function(callback) {
+var startPollingQueueStatus = function() {
 	var options = {
 		hostname: zdWrapper.hostname,
 		auth: zdWrapper.auth,
 		path: zdWrapper.basePath + '/channels/voice/stats/current_queue_activity',
 		headers: zdWrapper.headers
-	}
-	console.log(options);
-	https.get(options, callback).on('error', function(e) {
-		console.log('Got error: ' + e.message);
+	};
+	setInterval(function() {
+		https.get(options, function (response) {
+			var content = "";
+			
+			response.on('data', function(chunk) {
+				content += chunk;
+			});
+			
+			response.on('end', function() {
+				var queueStatus = JSON.parse(content);
+				console.log(content);
+				zdWrapper.lastQueueCall = Date(); // we store the last time we got data
+			});
+		}).on('error', function(error) {
+			console.log('Error while calling queue activity: ' + error.message);
+		});
+	}, 5000);
+}
 
-	});
+zdWrapper.getQueueStatus = function(callback) {
+	callback(queueStatus);
 }
 
 
