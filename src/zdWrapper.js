@@ -4,6 +4,7 @@ var express = require('express');
 var dbSession = require('../src/dbSession.js');
 var bodyParser = require('body-parser');
 var https = require('https');
+var callQueue = require('../models/callQueue');
 
 var zdWrapper = {};
 //maybe I'm too java but I think I want a zdWrapper object to carry around, is that what i'm doing?
@@ -18,11 +19,14 @@ zdWrapper.connect = function(org, user, key, callback) {
 	zdWrapper.headers = {
 		Accept: 'application/json'
 	}
-	console.log('set some variables');
+//	console.log('set some variables');
 	console.log(zdWrapper);
+	console.log(this);
 	startPollingQueueStatus();
 	callback();
 }
+
+var queueStatus;
 
 var startPollingQueueStatus = function() {
 	var options = {
@@ -31,7 +35,8 @@ var startPollingQueueStatus = function() {
 		path: zdWrapper.basePath + '/channels/voice/stats/current_queue_activity',
 		headers: zdWrapper.headers
 	};
-	setInterval(function() {
+	var poll = function() {
+		
 		https.get(options, function (response) {
 			var content = "";
 			
@@ -40,18 +45,23 @@ var startPollingQueueStatus = function() {
 			});
 			
 			response.on('end', function() {
-				var queueStatus = JSON.parse(content);
-				console.log(content);
-				zdWrapper.lastQueueCall = Date(); // we store the last time we got data
+				//two methods of saving this
+				zdWrapper.queueStatus = JSON.parse(content);
+				console.log('called zendesk');
+//				callQueue.updateQueueInfo(zdWrapper.queueStatus, new Date());
+				zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
 			});
 		}).on('error', function(error) {
 			console.log('Error while calling queue activity: ' + error.message);
-		});
-	}, 5000);
+		});	
+	}
+	poll();
+	setInterval(poll, 5000);
 }
 
-zdWrapper.getQueueStatus = function(callback) {
-	callback(queueStatus);
+zdWrapper.getQueueStatus = function() {
+	// another way of getting data out
+	return queueStatus;
 }
 
 
