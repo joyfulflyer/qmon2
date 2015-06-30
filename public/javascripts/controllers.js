@@ -46,3 +46,18 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 	}
 ]);
+
+qmonControllers.controller('QueueCtrl', ['$scope', '$http',
+	function ($scope, $http) {
+		var poll = function() {
+			$http.get('queue/').success(function(data) {
+				console.log('queue information');
+				console.log(data.current_queue_activity);
+				$scope.callers = data.current_queue_activity.calls_waiting;
+				$scope.waitTime = data.current_queue_activity.longest_wait_time;
+			});
+		};
+		poll();
+		setInterval(poll, 5000);
+	}
+]);
