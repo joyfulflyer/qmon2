@@ -5,22 +5,54 @@ var qmonControllers = angular.module('qmonControllers', ['angularGrid']);
 qmonControllers.controller('UserCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 
-		$http.get('users/').success(function(data) {
-			console.log(data);
-			$scope.users = data;
-			$scope.gridOptions.rowData = data;
-			if ($scope.gridOptions.api) {
-				$scope.gridOptions.api.onNewRows();
-			}
-		});
+		var getLatestUserData = function() {
+			$http.get('users/').success(function(data) {
+				console.log('getting user data');
+				$scope.users = data;
+				$scope.gridOptions.rowData = data;
+				if ($scope.gridOptions.api) {
+					$scope.gridOptions.api.onNewRows();
+				}
+			});
+		};
+
+		getLatestUserData();
+
+		
 
 		$scope.updateUser = function(user) {
-			console.log('got presssed');
+			console.log('Not implemented!');
+		};
+
+		$scope.deleteUser = function(user) {
+			console.log('Deleting user!!!');
 			console.log(user);
-			$http.post('/users', user).
-				success(function (data, status, headers, config) {
-					console.log(data);
-				});
+			var options = {
+
+			};
+
+			$http.delete('/users/' + user.id).success(function(data, status, headers, config) {
+				console.log('deleted user!');
+				getLatestUserData();
+			}).error(function(error) {
+				console.log('got error' + error);
+			});
+		}
+
+		$scope.addUser = function(name, type, external_id) {
+			var u = {
+				name: name,
+				type: type,
+				external_id: external_id
+			};
+			console.log('adding user');
+		//	console.log(user);
+			$http.post('/users', u).success(function (data, status, headers, config) {
+				console.log(data);
+				getLatestUserData();
+			}).error(function() {
+				console.log ('got error when posting');
+			});
 		};
 		
 		$scope.gridOptions = {
@@ -55,12 +87,13 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 				console.log(data.current_queue_activity);
 				$scope.callers = data.current_queue_activity.calls_waiting;
 				$scope.waitTime = data.current_queue_activity.longest_wait_time;
+				$scope.averageTime = data.current_queue_activity.average_wait_time;
 			}).error(function(data, status) {
 				console.log('got error: ' + status);
 				clearInterval(queuePoll); // stop polling as soon as there is a problem
 			});
 		};
 		poll();
-		var queuePoll = setInterval(poll, 5000);
+		var queuePoll = setInterval(poll, 1000);
 	}
 ]);

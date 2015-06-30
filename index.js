@@ -19,7 +19,7 @@ zdWrapper.connect(secrets.org, secrets.user, secrets.key, function(err) {
 })
 
 var str = '';
-/*
+
 zdWrapper.getQueueStatus(function (res) {
 	res.on('data', function(chunk) {
 		console.log('got chunk');
@@ -33,7 +33,7 @@ zdWrapper.getQueueStatus(function (res) {
 	})
 	console.log('RESPONSE');
 	console.log(res.statusCode);
-//	console.log(res);
+	console.log(res);
 	console.log("end response");
 })
-*/
+

@@ -47,6 +47,7 @@ var startPollingQueueStatus = function() {
 			response.on('end', function() {
 				//two methods of saving this
 				zdWrapper.queueStatus = JSON.parse(content);
+//				console.log(zdWrapper.queueStatus);
 //				callQueue.updateQueueInfo(zdWrapper.queueStatus, new Date());
 				zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
 			});
@@ -56,9 +57,23 @@ var startPollingQueueStatus = function() {
 		});	
 	}
 	poll();
-	var queuePoll = setInterval(poll, 5000); // to shut it off
+	var queuePoll = setInterval(poll, 1000); // to shut it off
 }
 
+/*
+var startPollingUserStatus = function() {
+	for (i = 0; )
+
+
+	var options = {
+		hostname: zdWrapper.hostname,
+		auth: zdWrapper.auth,
+		path: zdWrapper.basePath + '/channels/voice/stats/current_queue_activity',
+		headers: zdWrapper.headers
+
+	};
+}
+*/
 zdWrapper.getQueueStatus = function() {
 	// another way of getting data out
 	return queueStatus;

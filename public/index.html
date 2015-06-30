@@ -45,6 +45,17 @@
 					<div ng-repeat="user in users">
 						<span>{{user}}</span>
 					</div>
+					<div>
+						<form>
+						 	<input type="text" ng-model="name" placeholder="Name">
+						 	<select name="type" ng-model="type">
+						 		<option value=1>Support</option>
+						 		<option value=2>ACT</option>
+					 		</select>
+						 	<input type="text" ng-model="external_id" placeholder="external id">
+						 	<button type="submit" class='btn btn-primary' ng-click="addUser(name, type, external_id)">Save</button>
+						</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					entry forms
@@ -61,7 +72,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8">
-					<div id=queue ng-controller="QueueCtrl">Callers in Queue: {{callers}}</div>
+					<div id=queue ng-controller="QueueCtrl">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</div>
 				</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-2">
