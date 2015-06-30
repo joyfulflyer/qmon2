@@ -55,9 +55,12 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 				console.log(data.current_queue_activity);
 				$scope.callers = data.current_queue_activity.calls_waiting;
 				$scope.waitTime = data.current_queue_activity.longest_wait_time;
+			}).error(function(data, status) {
+				console.log('got error: ' + status);
+				clearInterval(queuePoll); // stop polling as soon as there is a problem
 			});
 		};
 		poll();
-		setInterval(poll, 5000);
+		var queuePoll = setInterval(poll, 5000);
 	}
 ]);

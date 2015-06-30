@@ -21,10 +21,16 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
+	//dbSession.insert('users')
+	
 	console.log('poast' + req.body);
 	console.log(req.body);
 	res.json(req.body);
 	next(req, res);
 });
+
+router.route('/:id').get(function (req, res) {
+	res.send(req.params.id);
+})
 
 module.exports = router;

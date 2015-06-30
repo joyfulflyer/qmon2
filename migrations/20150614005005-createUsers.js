@@ -9,7 +9,7 @@ exports.up = function(db, callback) {
 		db.createTable.bind(db,
 			'users',
 			{
-				id: { type: 'int', primaryKey: true },
+				id: { type: 'int', primaryKey: true, auto_increment: true },
 				name: 'string',
 				type: 'int',
 				call_start: 'string'

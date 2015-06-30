@@ -47,16 +47,16 @@ var startPollingQueueStatus = function() {
 			response.on('end', function() {
 				//two methods of saving this
 				zdWrapper.queueStatus = JSON.parse(content);
-				console.log('called zendesk');
 //				callQueue.updateQueueInfo(zdWrapper.queueStatus, new Date());
 				zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
 			});
+			
 		}).on('error', function(error) {
 			console.log('Error while calling queue activity: ' + error.message);
 		});	
 	}
 	poll();
-	setInterval(poll, 5000);
+	var queuePoll = setInterval(poll, 5000); // to shut it off
 }
 
 zdWrapper.getQueueStatus = function() {
