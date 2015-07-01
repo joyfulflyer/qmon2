@@ -154,3 +154,42 @@ var processUserStatus = function(zendeskUsers) {
 }
 
 module.exports = zdWrapper;
+
+
+/******************
+* Alternative method: get the availability of the users from zendesk
+* https://developer.zendesk.com/rest_api/docs/voice-api/voice#getting-availability
+
+
+Getting Availability
+
+GET /api/v2/channels/voice/availabilities/{id}.json
+
+Allowed For
+
+Agents
+Using curl
+
+ curl https://{subdomain}.zendesk.com/api/v2/channels/voice/availabilities/{id}.json \
+  -v -u {email_address}:{password} -X GET
+Example Response
+
+ Status: 200 OK
+
+{
+  "availability": {
+    "via":        "client",
+    "available":  true,
+    "status":     "available"
+  }
+}
+Availability JSON Format
+
+Availability has the following keys:
+
+Name	Type	Comment
+available	boolean	The current availability status of the agent
+via	string	The channel (client/phone) the agent is registered on
+status	string	The status of the agent. Posible values: "available", "on_call", "wrap_up", "not_available"
+
+*/
