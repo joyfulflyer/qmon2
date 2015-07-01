@@ -80,12 +80,12 @@
 				</div>
 			</div>
 			<div class="row" id="main-row">
-				<div class="col-md-3" ng-controller="UserCtrl">
+				<div class="col-md-3" ng-controller="UserCtrl" id="support">
 					<div ng-repeat="user in users">
 						<span>{{user.name}} {{user.type}}</span>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="acts">
 					<div ng-controller="UserCtrl" ag-grid="gridOptions" style="width: 100%; height: 200px" class="table"></div>
 					<br>act partial
 				</div>
