@@ -25,7 +25,7 @@ zdWrapper.connect = function(org, user, key, callback) {
 	console.log(this);
 //	startPollingQueueStatus();
 //	startPollingUserStatus();
-	getUserStatus(0);
+	var userPoll = setInterval(getUserStatus, 5000);;
 	callback();
 }
 
@@ -66,6 +66,9 @@ var allContent = [];
 
 // Current page is designed to start at 0. It uses currentPage + 1 to determine the page to view
 var getUserStatus = function(currentPage) {
+	if (currentPage == null) {
+		currentPage = 0;
+	}
 	var cont = true;
 	var i = 0;
 
