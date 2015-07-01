@@ -18,22 +18,3 @@ zdWrapper.connect(secrets.org, secrets.user, secrets.key, function(err) {
 	console.log(err);
 })
 
-var str = '';
-
-zdWrapper.getQueueStatus(function (res) {
-	res.on('data', function(chunk) {
-		console.log('got chunk');
-		console.log(chunk);
-		str += chunk;
-	})
-	res.on('end', function () {
-		console.log('end');
-		console.log('message: ' + str);
-
-	})
-	console.log('RESPONSE');
-	console.log(res.statusCode);
-	console.log(res);
-	console.log("end response");
-})
-
