@@ -25,7 +25,7 @@ zdWrapper.connect = function(org, user, key, callback) {
 	console.log(this);
 //	startPollingQueueStatus();
 //	startPollingUserStatus();
-	var userPoll = setInterval(getUserStatus, 5000);;
+//	var userPoll = setInterval(getUserStatus, 5000);;
 	callback();
 }
 

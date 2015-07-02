@@ -8,13 +8,31 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		var getLatestUserData = function() {
 			$http.get('users/').success(function(data) {
 				console.log('getting user data');
-				$scope.users = data;
+				$scope.users = data;  //An array of ojects I believe
 				$scope.gridOptions.rowData = data;
 				if ($scope.gridOptions.api) {
 					$scope.gridOptions.api.onNewRows();
 				}
+				separateUserTypes();
+			}).error(function(err) {
+				console.log('error! ' + err);
 			});
 		};
+
+		$scope.supportUsers = [];
+		$scope.actUsers = [];
+
+		var separateUserTypes = function() {
+			for(var i = 0; i < $scope.users.length; i++) {
+				var currentUser = $scope.users[i];
+				if (currentUser.type == 1) {
+					$scope.supportUsers.push(currentUser);
+				} else {
+					$scope.actUsers.push(currentUser);
+				}
+
+			}
+		}
 
 		getLatestUserData();
 
@@ -70,11 +88,16 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			],
 			rowData: null,
 			angularCompileRows: true,
-			enableCellEdit: true,
+			enableCellEdit: false,
 			enableSorting: true,
 			enableColResize: true,
 			enableCellSelection: false
 		};
+
+
+		var getUsersOfType = function (type) {
+
+		}
 		
 	}
 ]);
@@ -85,9 +108,12 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 			$http.get('queue/').success(function(data) {
 				console.log('queue information');
 				console.log(data.current_queue_activity);
-				$scope.callers = data.current_queue_activity.calls_waiting;
-				$scope.waitTime = data.current_queue_activity.longest_wait_time;
-				$scope.averageTime = data.current_queue_activity.average_wait_time;
+				if (data.current_queue_activity != null){
+					$scope.lastAccessed = new Date();
+					$scope.callers = data.current_queue_activity.calls_waiting;
+					$scope.waitTime = data.current_queue_activity.longest_wait_time;
+					$scope.averageTime = data.current_queue_activity.average_wait_time;
+				}
 			}).error(function(data, status) {
 				console.log('got error: ' + status);
 				clearInterval(queuePoll); // stop polling as soon as there is a problem
@@ -96,4 +122,8 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 		poll();
 		var queuePoll = setInterval(poll, 1000);
 	}
+
+
+
+
 ]);
