@@ -25,7 +25,7 @@ zdWrapper.connect = function(org, user, key, callback) {
 	console.log(this);
 	startPollingQueueStatus();
 //	startPollingUserStatus();
-//	var userPoll = setInterval(getUserStatus, 5000);;
+	var userPoll = setInterval(getUserStatus, 5000);;
 	callback();
 }
 
@@ -71,38 +71,55 @@ var getUserStatus = function(currentPage) {
 	}
 	var cont = true;
 	var i = 0;
+//	var allUsers = []
 
-	var options = {
-		hostname: zdWrapper.hostname,
-		auth: zdWrapper.auth,
-		path: zdWrapper.basePath + '/channels/voice/stats/agents_activity.json?page=' + (currentPage + 1),
-		headers: zdWrapper.headers
-	};
+	dbSession.fetchAll('SELECT * FROM users', function(err, rows) {
+		if (err) {
+			throw new Error('error getting users from database:' + err);
+		} else {
+//			allUsers = rows;
+			for (var i = 0; i < rows.length; i++) {
+				var currentUser = rows[i];
+				var options = {
+					hostname: zdWrapper.hostname,
+					auth: zdWrapper.auth,
+					path: zdWrapper.basePath + '/channels/voice/availabilities/' + (currentUser.external_id),
+					headers: zdWrapper.headers
+				};
+//				console.log('getting' + rows[i].external_id);
+				https.get(options, function(response) {
+					var content = "";
+					response.on('data', function (chunk) {
+						content += chunk;
+					});
+					response.on('end', function () {
+						console.log(currentUser);
+						console.log('user ^');
+						console.log(content);
+						content = JSON.parse(content);
+						console.log(content);
+						console.log(content.availability);
 
-	https.get(options, function(response) {
-		var content = "";
-		response.on('data', function(chunk) {
-			content += chunk;
-		});
-		response.on('end', function() {
-			console.log ('content ' + (currentPage + 1));
-			content = JSON.parse(content);
-//			console.log(content);
-			if (content.next_page != null) {
-				// add the current info to the array of agents
-				allContent = allContent.concat(content.agents_activity);
-//				allContent.push(content.agents_activity);
-				console.log('read page ' + (currentPage + 1));
-				getUserStatus(currentPage + 1);
-			} else {
-				processUserStatus(allContent);
-				console.log('no more pages');
-//				console.log(allContent);
-				console.log('printed all content');
+						if (content.availability != undefined) {
+							console.log(currentUser.status + ' ' + content.availability.status);
+						}
+						if (content.availability != undefined && currentUser.status != content.availability.status) {
+							var timeNow = new Date();
+//							console.log('updated');
+							dbSession.update('users', {
+								status: content.status,
+								call_start: timeNow //I don't need this for all status but I don't see a harm in recording it
+							}, 'id=' + currentUser.id, function(err) {
+								console.log('inserted');
+							});
+						}
+					});
+					response.on('error', function (err) {
+						console.log('Error getting info for ' + allUsers[i])
+					})
+				})
 			}
-		});
-
-
+		}
 	});
 
 }
@@ -112,47 +129,6 @@ var getUserStatus = function(currentPage) {
 * status | string | Unavailable, Available, On Call, Wrap up
 * status_code | string | not_available, available, on_call, wrap_up
 ***********************************************************************/
-var processUserStatus = function(zendeskUsers) {
-	console.log('started processing user status');
-	var allUsers = [];
-	
-	dbSession.fetchAll('SELECT * FROM users', function(err, rows) {
-		if (err) {
-			throw new Error('error getting users from database:' + err);
-		} else {
-			allUsers = rows;
-			console.log('got the database');
-			console.log(rows);
-			console.log(zendeskUsers);
-			console.log('starting the for loops');
-			for (var i = 0; i < zendeskUsers.length; i++) {
-				for (var u = 0; u < allUsers.length; u++) {
-					console.log(zendeskUsers[i].agent_id);
-					console.log(allUsers[u].external_id);
-					if (zendeskUsers[i].agent_id == allUsers[u].external_id) {
-						console.log('Match');
-						console.log(zendeskUsers[i]);
-						console.log(allUsers[u]);
-						console.log('end match');
-						var timeNow = new Date();
-						//compare to database to see what's updated (can I do this a better way?)
-						if (zendeskUsers[i].status != allUsers[u].status) { //TODO: combine with above if
-							console.log('updating db');
-							dbSession.update('users', {
-								status: zendeskUsers[i].status,
-								call_start: timeNow //I don't need this for all status but I don't see a harm in recording it
-							}, 'id=' + allUsers[u].id, function(err) {
-								console.log('error inserting: ' +err);
-							});
-						}	
-					}
-				}
-			}
-		}
-	});
-				
-}
-
 module.exports = zdWrapper;
 
 

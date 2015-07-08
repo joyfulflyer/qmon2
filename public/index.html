@@ -13,6 +13,7 @@
 		<script src="bower_components/ag-grid/dist/angular-grid.js"></script>
 		<script src="javascripts/controllers.js"></script>
 		<script src="javascripts/app.js"></script>
+		<script src="javascripts/filters.js"></script>
 	</head>
 	
 	
@@ -84,7 +85,7 @@
 			</div>
 			<div class="row" id="main-row">
 				<div class="col-md-3" ng-controller="UserCtrl" id="support">
-					<div id="available support" class="col-sm-1" ng-repeat="user in users">{{user.name}}</div>
+					<div id="available support" class="col-sm-1" ng-repeat="user in users">{{user.name | available}}</div>
 					<div id="on call support" class="col-sm-2" ng-repeat="user in users">
 						<div id="on call support name" class="col-sm-1">{{user.name}}</div>
 						<div id="on call support time" class="col-sm-1">{{user.call_start}}</div>

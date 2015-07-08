@@ -6,7 +6,8 @@ var qmon = angular.module('qmon', [
   'ngRoute',
   "angularGrid",
   
-  'qmonControllers'  
+  'qmonControllers',
+  'qmonFilters'
 ]);
 
 qmon.config(['$routeProvider', 

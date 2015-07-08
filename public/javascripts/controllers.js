@@ -60,7 +60,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		$scope.addUser = function(name, type, external_id) {
 			var u = {
 				name: name,
-				type: type,
+				type: type || 1,
 				external_id: external_id
 			};
 			console.log('adding user');
