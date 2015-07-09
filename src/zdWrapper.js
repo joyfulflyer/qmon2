@@ -90,28 +90,34 @@ var getUserStatus = function(currentPage) {
 				https.get(options, function(response) {
 					var content = "";
 					response.on('data', function (chunk) {
+						console.log(response.statusCode);
 						content += chunk;
 					});
 					response.on('end', function () {
-						console.log(currentUser);
-						console.log('user ^');
-						console.log(content);
-						content = JSON.parse(content);
-						console.log(content);
-						console.log(content.availability);
+						if (response.statusCode < 400) {
+							
+						
+							console.log(response.statusCode);
+							console.log(currentUser);
+							console.log('user ^');
+							console.log(content);
+							content = JSON.parse(content);
+							console.log(content);
+							console.log(content.availability);
 
-						if (content.availability != undefined) {
-							console.log(currentUser.status + ' ' + content.availability.status);
-						}
-						if (content.availability != undefined && currentUser.status != content.availability.status) {
-							var timeNow = new Date();
-//							console.log('updated');
-							dbSession.update('users', {
-								status: content.status,
-								call_start: timeNow //I don't need this for all status but I don't see a harm in recording it
-							}, 'id=' + currentUser.id, function(err) {
-								console.log('inserted');
-							});
+							if (content.availability != undefined) {
+								console.log(currentUser.status + ' ' + content.availability.status);
+							}
+							if (content.availability != undefined && currentUser.status != content.availability.status) {
+								var timeNow = new Date();
+	//							console.log('updated');
+								dbSession.update('users', {
+									status: content.status,
+									call_start: timeNow //I don't need this for all status but I don't see a harm in recording it
+								}, 'id=' + currentUser.id, function(err) {
+									console.log('inserted');
+								});
+							}
 						}
 					});
 					response.on('error', function (err) {
