@@ -54,6 +54,11 @@ var startPollingQueueStatus = function() {
 				zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
 			});
 			
+			response.on('error', function(err) {
+				console.log('got an error during get');
+				console.log(err);
+			});
+			
 		}).on('error', function(error) {
 			console.log('Error while calling queue activity: ' + error.message);
 		});	
@@ -123,7 +128,10 @@ var getUserStatus = function(currentPage) {
 					response.on('error', function (err) {
 						console.log('Error getting info for ' + allUsers[i])
 					})
-				})
+				}).on('error', function(err) {
+					console.log('another error location');
+					console.log(err);
+				}
 			}
 		}
 	});
