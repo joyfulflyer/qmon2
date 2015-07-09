@@ -8,7 +8,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		var getLatestUserData = function() {
 			$http.get('users/').success(function(data) {
 				console.log('getting user data');
-				$scope.users = data;  //An array of ojects I believe
+				$scope.users = data;  //An array of objects I believe
 				$scope.gridOptions.rowData = data;
 				if ($scope.gridOptions.api) {
 					$scope.gridOptions.api.onNewRows();
@@ -23,8 +23,9 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		$scope.actUsers = [];
 
 		var separateUserTypes = function() {
-			for(var i = 0; i < $scope.users.length; i++) {
-				var currentUser = $scope.users[i];
+			var setOfUsers = $scope.users;
+			for(var i = 0; i < setOfUsers.length; i++) {
+				var currentUser = setOfUsers[i];
 				if (currentUser.type == 1) {
 					$scope.supportUsers.push(currentUser);
 				} else {

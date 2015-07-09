@@ -83,8 +83,8 @@
 					<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#usersModal">Edit Users</button>
 				</div>
 			</div>
-			<div class="row" id="main-row">
-				<div class="col-md-3" ng-controller="UserCtrl" id="support">
+			<div class="row" id="main-row" ng-controller="UserCtrl">
+				<div class="col-md-3" id="support">
 					<div id="available support" class="col-sm-1" ng-repeat="user in users">{{user.name | available}}</div>
 					<div id="on call support" class="col-sm-2" ng-repeat="user in users">
 						<div id="on call support name" class="col-sm-1">{{user.name}}</div>
@@ -93,7 +93,7 @@
 					<div id="wrap up support" class="col-sm-1" ng-repreat"user in users">{{user.name}}</div>
 				</div>
 				<div class="col-md-3" id="acts">
-					<div ng-controller="UserCtrl" ag-grid="gridOptions" style="width: 100%; height: 200px" class="table"></div>
+					<div ag-grid="gridOptions" style="width: 100%; height: 200px" class="table"></div>
 					<br>act partial
 				</div>
 				<div class="col-md-2">

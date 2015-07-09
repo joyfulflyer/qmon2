@@ -2,6 +2,9 @@
 
 var qmonFilters = angular.module('qmonFilters', []);
 
-qmonFilters.filter('name', function() {
-	return false;
+qmonFilters.filter('available', function() {
+	return function(input) {
+		console.log('available filter');
+		return false;
+	};
 })
