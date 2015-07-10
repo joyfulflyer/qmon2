@@ -86,7 +86,7 @@
 			<div class="row" id="main-row" ng-controller="UserCtrl">
 				<div class="col-md-3" id="support">
 					<div id="available support" class="col-sm-1">
-						<div ng-repeat="user in users">{{user.name | filter : "avaable" }}</div>
+						<div ng-repeat="user in users">{{user | filter : {status: 'on_call'} }}</div>
 					</div>
 					<div id="on call support" class="col-sm-2" ng-repeat="user in users">
 						<div id="on call support name" class="col-sm-1">{{user.name}}</div>

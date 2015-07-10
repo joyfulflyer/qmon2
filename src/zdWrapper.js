@@ -131,7 +131,7 @@ var getUserStatus = function(currentPage) {
 				}).on('error', function(err) {
 					console.log('another error location');
 					console.log(err);
-				}
+				})
 			}
 		}
 	});
