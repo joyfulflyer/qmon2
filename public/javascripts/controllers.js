@@ -103,12 +103,22 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 	}
 ]);
 
+qmonControllers.controller('AvailabilityCtrl', ['$scope, $http', 
+	function ($scope, $http) {
+		$scope.availabilityGridOptions = {
+			columnDefs: [
+				{headerName: 'Available', field: 'name'},
+			]
+		};
+	}
+])
+
 qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 		var poll = function() {
 			$http.get('queue/').success(function(data) {
-				console.log('queue information');
-				console.log(data.current_queue_activity);
+			//	console.log('queue information');
+			//	console.log(data.current_queue_activity);
 				if (data.current_queue_activity != null){
 					$scope.lastAccessed = new Date();
 					$scope.callers = data.current_queue_activity.calls_waiting;
