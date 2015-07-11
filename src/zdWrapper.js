@@ -69,15 +69,7 @@ var startPollingQueueStatus = function() {
 
 var allContent = [];
 
-// Current page is designed to start at 0. It uses currentPage + 1 to determine the page to view
-var getUserStatus = function(currentPage) {
-	if (currentPage == null) {
-		currentPage = 0;
-	}
-	var cont = true;
-	var i = 0;
-	var allUsers = []
-
+var getUserStatus = function() {
 	dbSession.fetchAll('SELECT * FROM users WHERE external_id IS NOT NULL', function(err, rows) {
 		if (err) {
 			throw new Error('error getting users from database:' + err);
