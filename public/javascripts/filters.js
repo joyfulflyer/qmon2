@@ -4,6 +4,7 @@ var qmonFilters = angular.module('qmonFilters', []);
 
 qmonFilters.filter('available', function() {
 	return function(input) {
+		console.log(input.status);
 		if (input.status == 'Available') {
 			return input.name;
 		}
@@ -12,7 +13,8 @@ qmonFilters.filter('available', function() {
 
 qmonFilters.filter('on_call', function() {
 	return function(input) {
-	//	console.log(input);
+		console.log('on call');
+		console.log(input);
 		if (input.status == 'on_call' || input.status == 'Available') {
 			// can I maninpulate scope in here? should I?
 			// what can/should I return?

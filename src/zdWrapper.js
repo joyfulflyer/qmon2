@@ -76,63 +76,45 @@ var getUserStatus = function(currentPage) {
 	}
 	var cont = true;
 	var i = 0;
-//	var allUsers = []
+	var allUsers = []
 
-	dbSession.fetchAll('SELECT * FROM users', function(err, rows) {
+	dbSession.fetchAll('SELECT * FROM users WHERE external_id IS NOT NULL', function(err, rows) {
 		if (err) {
 			throw new Error('error getting users from database:' + err);
 		} else {
 //			allUsers = rows;
-			for (var i = 0; i < rows.length; i++) {
-				var currentUser = rows[i];
+
+			rows.forEach(function(currentUser, index) {
 				var options = {
 					hostname: zdWrapper.hostname,
 					auth: zdWrapper.auth,
 					path: zdWrapper.basePath + '/channels/voice/availabilities/' + (currentUser.external_id),
 					headers: zdWrapper.headers
 				};
-//				console.log('getting' + rows[i].external_id);
 				https.get(options, function(response) {
 					var content = "";
 					response.on('data', function (chunk) {
-						console.log(response.statusCode);
 						content += chunk;
 					});
 					response.on('end', function () {
 						if (response.statusCode < 400) {
-							
-						
-							console.log(response.statusCode);
-							console.log(currentUser);
-							console.log('user ^');
-							console.log(content);
 							content = JSON.parse(content);
-							console.log(content);
-							console.log(content.availability);
-
-							if (content.availability != undefined) {
-								console.log(currentUser.status + ' ' + content.availability.status);
-							}
-							if (content.availability != undefined && currentUser.status != content.availability.status) {
+							if (content.availability.status != currentUser.status) {
+								console.log(content.availability.status + ' ' + currentUser.status);
 								var timeNow = new Date();
-	//							console.log('updated');
 								dbSession.update('users', {
-									status: content.status,
-									call_start: timeNow //I don't need this for all status but I don't see a harm in recording it
+									status: content.availability.status,
+									call_start: timeNow
 								}, 'id=' + currentUser.id, function(err) {
-									console.log('inserted');
+									// empty for now
 								});
+							} else {
+								console.log('statuses matched');
 							}
-						}
+						} 
 					});
-					response.on('error', function (err) {
-						console.log('Error getting info for ' + allUsers[i])
-					})
-				}).on('error', function(err) {
-					console.log('another error location');
-					console.log(err);
-				})
-			}
+				});
+			})
 		}
 	});
 

@@ -96,13 +96,10 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		};
 
 
-		var getUsersOfType = function (type) {
-
-		}
 		
 	}
 ]);
-
+/*
 qmonControllers.controller('AvailabilityCtrl', ['$scope, $http', 
 	function ($scope, $http) {
 		$scope.availabilityGridOptions = {
@@ -112,7 +109,7 @@ qmonControllers.controller('AvailabilityCtrl', ['$scope, $http',
 		};
 	}
 ])
-
+*/
 qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 		var poll = function() {
