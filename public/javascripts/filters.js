@@ -28,4 +28,12 @@ qmonFilters.filter('on_call', function() {
 			return input.name + ' | ' + input.status;
 		}
 	};
+});
+
+qmonFilters.filter('timeSinceCall', function() {
+	return function(input) {
+		var timeNow = new Date();
+		var msOnCall = Date.parse(input) - timeNow;
+		return (msOnCall/1000)/60;
+	}
 })

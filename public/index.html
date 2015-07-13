@@ -84,12 +84,15 @@
 				</div>
 			</div>
 			<div class="row" id="main-row" ng-controller="UserCtrl">
-				<div class="col-md-3" ng-model="users" id="support">
-					<div id="available support" class="col-sm-1">
-						<div ng-repeat="user in users">{{user | available }}</div>
+				<div class="col-md-3" id="support">
+					<div id="available support" class="col-sm-1" ng-model="availableSupportUsers">
+						<div ng-repeat="user in availableSupportUsers">Available: {{user.name}}</div>
 					</div>
-					<div id="on call support" ng-repeat="user in users">{{user | on_call}}</div>
-					<div id="wrap up support" class="col-sm-1" ng-repeat"user in users">{{user.name}}</div> 
+					<div id="on call support" ng-repeat="user in users">
+						<div ng-repeat="user in onCallSupportUsers">{{user.name}} {{ user.call_start | timeSinceCall }}</div>
+
+					</div>
+		<!--			<div id="wrap up support" class="col-sm-1" ng-repeat"user in users">{{user.name}}</div> -->
 				</div>
 				<div class="col-md-3" id="acts">
 					<div ag-grid="gridOptions" style="width: 100%; height: 200px" class="table"></div>

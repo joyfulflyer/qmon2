@@ -105,6 +105,9 @@ var getUserStatus = function() {
 							}
 						} 
 					});
+					response.on('error', function(err) {
+						console.log('got error: ' + error);
+					})
 				});
 			})
 		}

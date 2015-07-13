@@ -23,22 +23,36 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		$scope.actUsers = [];
 
 		var separateUserTypes = function() {
-			var setOfUsers = $scope.users;
-			for(var i = 0; i < setOfUsers.length; i++) {
-				var currentUser = setOfUsers[i];
-				if (currentUser.type == 1) {
-					$scope.supportUsers.push(currentUser);
-				} else {
-					$scope.actUsers.push(currentUser);
-				}
+			// reset arrays;
+			$scope.availableSupportUsers = [];
+			$scope.onCallSupportUsers = [];
+			$scope.availableActUsers = [];
+			$scope.onCallActUsers = [];
 
-			}
+			var setOfUsers = $scope.users;
+
+			setOfUsers.forEach(function(currentUser, index) {
+				if (currentUser.type == 1) {
+					if (currentUser.status == 'available') {
+						console.log('available: ' + currentUser.name);
+						$scope.availableSupportUsers.push(currentUser);
+					} else if (currentUser.status == 'on_call') {
+						console.log('on call: ' + currentUser.name);
+						$scope.onCallSupportUsers.push(currentUser);
+						console.log($scope.onCallSupportUsers);
+					}
+				} else if (currentUser.type == 2) {
+					if (currentUser.status == 'available') {
+						$scope.availableActUsers.push(currentUser);
+					} else if (currentUser.status == 'on_call') {
+						$scope.onCallActUsers.push(currentUser);
+					}
+				}
+			});
 		}
 
 		getLatestUserData();
 		var userPoll = setInterval(getLatestUserData(), 5000);
-
-		
 
 		$scope.updateUser = function(user) {
 			console.log('Not implemented!');
