@@ -5,8 +5,8 @@ var qmonFilters = angular.module('qmonFilters', []);
 qmonFilters.filter('available', function() {
 	return function(input) {
 		console.log(input.status);
-		if (input.status == 'Available') {
-			return input.name;
+		if (input.status == 'available') {
+			return input.name + ' ' + input.status;
 		}
 	};
 });
@@ -25,7 +25,7 @@ qmonFilters.filter('on_call', function() {
 			var timeOnCall = timeNow - Date.parse(input.call_start);
 	//		console.log(input);
 			console.log(timeOnCall);
-			return input.name + ' | ';
+			return input.name + ' | ' + input.status;
 		}
 	};
 })

@@ -36,6 +36,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		}
 
 		getLatestUserData();
+		var userPoll = setInterval(getLatestUserData(), 5000);
 
 		
 

@@ -92,7 +92,7 @@ var getUserStatus = function() {
 						if (response.statusCode < 400) {
 							content = JSON.parse(content);
 							if (content.availability.status != currentUser.status) {
-								console.log(content.availability.status + ' ' + currentUser.status);
+								console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
 								var timeNow = new Date();
 								dbSession.update('users', {
 									status: content.availability.status,
@@ -101,7 +101,7 @@ var getUserStatus = function() {
 									// empty for now
 								});
 							} else {
-								console.log('statuses matched');
+								console.log('statuses matched ' + currentUser.status);
 							}
 						} 
 					});
