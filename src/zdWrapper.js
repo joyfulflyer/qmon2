@@ -94,11 +94,12 @@ var getUserStatus = function() {
 							if (content.availability.status != currentUser.status) {
 								console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
 								var timeNow = new Date();
+				//				timeNow = timeNow.getTime(); // ensure UTC
 								dbSession.update('users', {
 									status: content.availability.status,
-									call_start: timeNow
+									call_start: timeNow.toString()
 								}, 'id=' + currentUser.id, function(err) {
-									// empty for now
+									console.log('timestamp: ' + timeNow);
 								});
 							} else {
 								console.log('statuses matched ' + currentUser.status);

@@ -22,6 +22,7 @@ qmonFilters.filter('on_call', function() {
 	//		console.log(input.call_start);
 			var temp = Date.parse(input.call_start);
 			console.log(temp);
+			console.log(timeNow - Date.parse(input.call_start));
 			var timeOnCall = timeNow - Date.parse(input.call_start);
 	//		console.log(input);
 			console.log(timeOnCall);
@@ -33,7 +34,9 @@ qmonFilters.filter('on_call', function() {
 qmonFilters.filter('timeSinceCall', function() {
 	return function(input) {
 		var timeNow = new Date();
-		var msOnCall = Date.parse(input) - timeNow;
-		return (msOnCall/10000)/60;
+		console.log('intput: ' + input);
+		console.log('time now: ' + timeNow.getTime());
+		var msOnCall = timeNow - Date.parse(input);
+		return msOnCall/1000;
 	}
 })
