@@ -86,10 +86,12 @@
 			<div class="row" id="main-row" ng-controller="UserCtrl">
 				<div class="col-md-3" id="support">
 					<div class="row">
-						<div id="available support" class="col-sm-1" ng-model="availableSupportUsers">
-							<div ng-repeat="user in availableSupportUsers">Available: {{user.name}}</div>
+						<div id="available support" class="col-md-4">
+							<div id="available support header">Available</div>
+							<div ng-repeat="user in availableSupportUsers">{{user.name}}</div>
 						</div>
-						<div id="on call support" class="col-sm-1" ng-repeat="user in users">
+						<div id="on call support" class="col-md-8">
+							<div id="on call support header">On Call</div>
 							<div ng-repeat="user in onCallSupportUsers">{{user.name}} {{ user.call_start | timeSinceCall }}</div>
 						</div>
 			<!--			<div id="wrap up support" class="col-sm-1" ng-repeat"user in users">{{user.name}}</div> -->

@@ -6,6 +6,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 
 		var getLatestUserData = function() {
+			console.log('getting user data');
 			$http.get('users/').success(function(data) {
 				console.log('getting user data');
 				$scope.users = data;  //An array of objects I believe
@@ -17,6 +18,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			}).error(function(err) {
 				console.log('error! ' + err);
 			});
+			console.log('-----');
 		};
 
 		$scope.supportUsers = [];
@@ -52,7 +54,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		}
 
 		getLatestUserData();
-		var userPoll = setInterval(getLatestUserData(), 5000);
+		var userPoll = setInterval(getLatestUserData, 5000);
 
 		$scope.updateUser = function(user) {
 			console.log('Not implemented!');
