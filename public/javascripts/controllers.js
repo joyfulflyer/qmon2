@@ -36,12 +36,9 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			setOfUsers.forEach(function(currentUser, index) {
 				if (currentUser.type == 1) {
 					if (currentUser.status == 'available') {
-						console.log('available: ' + currentUser.name);
 						$scope.availableSupportUsers.push(currentUser);
 					} else if (currentUser.status == 'on_call') {
-						console.log('on call: ' + currentUser.name);
 						$scope.onCallSupportUsers.push(currentUser);
-						console.log($scope.onCallSupportUsers);
 					}
 				} else if (currentUser.type == 2) {
 					if (currentUser.status == 'available') {
@@ -140,6 +137,12 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 					$scope.callers = data.current_queue_activity.calls_waiting;
 					$scope.waitTime = data.current_queue_activity.longest_wait_time;
 					$scope.averageTime = data.current_queue_activity.average_wait_time;
+
+					if (($scope.callers > 4 ||$scope.waitTime > 300) && $scope.flash == false) {
+						$scope.flash = true;
+					} else {
+						$scope.flash = false;
+					}
 				}
 			}).error(function(data, status) {
 				console.log('got error: ' + status);
@@ -148,15 +151,5 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 		};
 		poll();
 		var queuePoll = setInterval(poll, 1000);
-		
-		// Should we be flashing? If so, set to flashing.
-		$scope.shouldBeFlashing = function() {
-			if ($scope.callers == 4 || $scope.waitTime > 300) {
-				return 'flash';
-			}
-		}
-		
-		
-		
 	}
 ]);

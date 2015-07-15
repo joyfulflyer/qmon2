@@ -17,5 +17,9 @@ a {
 }
 
 .flash {
-	background-color: #111;
+	background-color: #FFFF00;
+}
+
+.call-header {
+	border: 1px;
 }

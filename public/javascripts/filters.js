@@ -34,13 +34,14 @@ qmonFilters.filter('on_call', function() {
 qmonFilters.filter('timeSinceCall', function() {
 	return function(input) {
 		var timeNow = new Date();
-		console.log('input: ' + input);
-		console.log('time now: ' + timeNow.getTime());
 		var msOnCall = timeNow - Date.parse(input);
 		
 		var sec = Math.floor(msOnCall/1000);
 		var min = Math.floor(sec/60);
 		var secAfterMin = Math.floor(sec%60);
+		if (secAfterMin < 10) {
+			secAfterMin = '0' + secAfterMin; // I can't believe I can do this
+		}
 		
 		if (min > 0) {
 			return min + ':' + secAfterMin;
