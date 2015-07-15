@@ -109,6 +109,9 @@ var getUserStatus = function() {
 					response.on('error', function(err) {
 						console.log('got error: ' + error);
 					})
+				}).on('error', function(err) {
+					console.log('Got an error!');
+					console.log(err);
 				});
 			})
 		}

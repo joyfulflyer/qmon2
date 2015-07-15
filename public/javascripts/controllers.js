@@ -89,11 +89,13 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			}).error(function() {
 				console.log ('got error when posting');
 			});
+			$scope.name = null;
+			$scope.external_id = null;
 		};
 		
 		$scope.gridOptions = {
 			columnDefs: [
-				{headerName: "Name", field: "name", editable: true, width: 50},
+				{headerName: "Name", field: "name", editable: true, width: 200},
 				{headerName: "Role", field: "type", width: 50},
 				{headerName: "External ID", field: "external_id", width: 100},
 				{
