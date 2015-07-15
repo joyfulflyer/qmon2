@@ -37,6 +37,17 @@ qmonFilters.filter('timeSinceCall', function() {
 		console.log('input: ' + input);
 		console.log('time now: ' + timeNow.getTime());
 		var msOnCall = timeNow - Date.parse(input);
-		return msOnCall/1000;
+		
+		var sec = Math.floor(msOnCall/1000);
+		var min = Math.floor(sec/60);
+		var secAfterMin = Math.floor(sec%60);
+		
+		if (min > 0) {
+			return min + ':' + secAfterMin;
+		} else {
+			return '00:' + sec;
+		}
+		
+	//	return msOnCall/1000;
 	}
 })
