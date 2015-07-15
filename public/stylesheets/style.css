@@ -15,3 +15,7 @@ a {
 #queue {
 	font-size: 3.5em;
 }
+
+.flash {
+	background-color: #111;
+}

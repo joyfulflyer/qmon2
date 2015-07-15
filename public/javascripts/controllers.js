@@ -8,7 +8,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		var getLatestUserData = function() {
 			console.log('getting user data');
 			$http.get('users/').success(function(data) {
-				console.log('getting user data');
+	//			console.log('getting user data');
 				$scope.users = data;  //An array of objects I believe
 				$scope.gridOptions.rowData = data;
 				if ($scope.gridOptions.api) {
@@ -103,7 +103,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 					templateUrl: 'partials/userEditButtons.html',
 					enableCellEdit: false, 
 					sortable: false,
-					width: 112
+					width: 112 // Determined experimentally
 				}
 			],
 			rowData: null,
@@ -148,9 +148,15 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 		};
 		poll();
 		var queuePoll = setInterval(poll, 1000);
+		
+		// Should we be flashing? If so, set to flashing.
+		$scope.shouldBeFlashing = function() {
+			if ($scope.callers == 4 || $scope.waitTime > 300) {
+				return 'flash';
+			}
+		}
+		
+		
+		
 	}
-
-
-
-
 ]);
