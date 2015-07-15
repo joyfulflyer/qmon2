@@ -34,7 +34,7 @@ qmonFilters.filter('on_call', function() {
 qmonFilters.filter('timeSinceCall', function() {
 	return function(input) {
 		var timeNow = new Date();
-		console.log('intput: ' + input);
+		console.log('input: ' + input);
 		console.log('time now: ' + timeNow.getTime());
 		var msOnCall = timeNow - Date.parse(input);
 		return msOnCall/1000;

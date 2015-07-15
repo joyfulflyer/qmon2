@@ -26,26 +26,7 @@
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body" ng-controller="UserCtrl">
-					<button type="button" class="btn btn-warning" ng-click="updateUser()">ah</button>
-					<div ag-grid="gridOptions" style="width: 100%; height: 200px"></div>					<div> --- </div>
-					<table class="">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Role</th>
-								<th>External ID</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="user in users">
-								<th>{{user.name}}</th>
-								<th>{{user.type}}</th>
-								<th>{{user.external_id || "none"}}</th>
-							</tr>
-					</table>
-					<div ng-repeat="user in users">
-						<span>{{user}}</span>
-					</div>
+					<div ag-grid="gridOptions" style="height: 200px"></div>					<div></div>
 					<div>
 						<form>
 						 	<input type="text" ng-model="name" placeholder="Name">
@@ -59,9 +40,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					entry forms
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save</button>
 				</div>
 			</div>
 		</div>
@@ -100,13 +79,16 @@
 				<div class="col-md-3" id="acts">
 				<!-- This and above are the same except for the arrays they use, can I replace with one? -->
 					<div class="row">
+						<div class="col-md-12">Acts</div>
+					</div>
+					<div class="row">
 						<div id="available acts" class ="col-md-4">
 							<div id="available act header">Available</div>
 							<div ng-repeat="user in availableActUsers">{{user.name}}</div>
 						</div>
 						<div id="on call acts" class="col-md-8">
 							<div id="on call act header">On Call</div>
-							<div ng-repteat="uer in onCallActUsers">{{user.name}} {{ user.call_start | timeSinceCall }}</div>
+							<div ng-repteat="act in onCallActUsers">{{act.name}} {{ act.call_start | timeSinceCall }}</div>
 						</div>
 					</div>
 				</div>
@@ -118,45 +100,7 @@
 						<img src="img/holder"/>
 					</div>
 				</div>
-			</div>			
-			
-			<br><br><br>
-			<div id="main">
-				we need:
-				time
-				last updated (from zendesk)
-				queue information
-				support table
-				acts table
-				alert image
-				picture
-				
-			<!--	
-				<div class="modal-content" id="users" class="hidden">
-					<div class="form-group">
-					<form>
-							<input 
-								type="text"
-								placeholder="put stuff here"
-							>
-							<button class="btn btn-default" type="button">Press me</button>
-						</form>
-					</div>
-				</div>
-				
-				-->
-				list of users (for editing)
-				add user
-				this should be popup
-				
-				aside: need a basic api page (can be json) that shows the info we have from zendesk and how old it is
-				
-				
 			</div>
-		
-			Hello!
-
-
 		</div>
-	</body>	
+	</body>
 </html>
