@@ -6,9 +6,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 
 		var getLatestUserData = function() {
-			console.log('getting user data');
 			$http.get('users/').success(function(data) {
-	//			console.log('getting user data');
 				$scope.users = data;  //An array of objects I believe
 				$scope.gridOptions.rowData = data;
 				if ($scope.gridOptions.api) {
@@ -18,7 +16,6 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			}).error(function(err) {
 				console.log('error! ' + err);
 			});
-			console.log('-----');
 		};
 
 		$scope.supportUsers = [];
@@ -48,6 +45,8 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 					}
 				}
 			});
+			$scope.usersLastAccessed = new Date().toTimeString();
+			//console.log($scope.usersLastAccessed);
 		}
 
 		getLatestUserData();
@@ -115,17 +114,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 	}
 ]);
-/*
-qmonControllers.controller('AvailabilityCtrl', ['$scope, $http', 
-	function ($scope, $http) {
-		$scope.availabilityGridOptions = {
-			columnDefs: [
-				{headerName: 'Available', field: 'name'},
-			]
-		};
-	}
-])
-*/
+
 qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 	function ($scope, $http) {
 		var poll = function() {
@@ -133,12 +122,12 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 			//	console.log('queue information');
 			//	console.log(data.current_queue_activity);
 				if (data.current_queue_activity != null){
-					$scope.lastAccessed = new Date();
+					$scope.lastAccessed = new Date().toTimeString();
 					$scope.callers = data.current_queue_activity.calls_waiting;
 					$scope.waitTime = data.current_queue_activity.longest_wait_time;
 					$scope.averageTime = data.current_queue_activity.average_wait_time;
 
-					if (($scope.callers > 4 ||$scope.waitTime > 300) && $scope.flash == false) {
+					if (($scope.callers > 4 || $scope.waitTime > 300) && $scope.flash == false) {
 						$scope.flash = true;
 					} else {
 						$scope.flash = false;
@@ -146,7 +135,7 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 				}
 			}).error(function(data, status) {
 				console.log('got error: ' + status);
-				clearInterval(queuePoll); // stop polling as soon as there is a problem
+//				clearInterval(queuePoll); // stop polling as soon as there is a problem
 			});
 		};
 		poll();

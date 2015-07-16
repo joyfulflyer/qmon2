@@ -52,9 +52,9 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8">
-					<div id=queue ng-controller="QueueCtrl" ng-class="{flash: flash}">
-						Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}
-						<small>Last accessed: {{lastAccessed}}</small>
+					<div ng-controller="QueueCtrl" ng-class="{flash: flash}">
+						<span id="queue">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</span><br>
+						<small>Queue last accessed: {{lastAccessed}}</small>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
@@ -62,40 +62,41 @@
 					<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#usersModal">Edit Users</button>
 				</div>
 			</div>
-			<div class="row" id="main-row" ng-controller="UserCtrl">
-				<div class="col-md-3" id="support">
-					<div class="row">
-						<div id="available support" class="col-md-4">
-							<div id="available support header" class="call-header">Agent Available</div>
-							<div ng-repeat="user in availableSupportUsers">{{user.name}}</div>
-						</div>
-						<div id="on call support" class="col-md-8">
-							<div id="on call support header">Agent On Call</div>
-							<div ng-repeat="user in onCallSupportUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
-						</div>
-			<!--			<div id="wrap up support" class="col-sm-1" ng-repeat"user in users">{{user.name}}</div> -->
-					</div>
-				</div>
-				<div class="col-md-3" id="acts">
-				<!-- This and above are the same except for the arrays they use, can I replace with one? -->
-					<div class="row">
-						<div id="available acts" class ="col-md-4">
-							<div id="available act header" class="call-header">Act Available</div>
-							<div ng-repeat="user in availableActUsers">moo{{user.name}}</div>
-						</div>
-						<div id="on call acts" class="col-md-8">
-							<div id="on call act header">Act On Call</div>
-							<div ng-repeat="user in onCallActUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+			<div ng-controller="UserCtrl">
+				<div class="row" id="main-row">
+					<div class="col-md-4" id="support">
+						<div class="row">
+							<div id="available support" class="col-md-4">
+								<div id="available support header" class="call-header">Agent Available</div>
+								<div ng-repeat="user in availableSupportUsers">{{user.name}}</div>
+							</div>
+							<div id="on call support" class="col-md-8">
+								<div id="on call support header" class="call-header">Agent On Call</div>
+								<div ng-repeat="user in onCallSupportUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-2">
-					alert
-				</div>
-				<div class="col-md-4">
-					<div id=picture>
-						<img src="img/holder"/>
+					<div class="col-md-4" id="acts">
+					<!-- This and above are the same except for the arrays they use, can I replace with one? -->
+						<div class="row">
+							<div id="available acts" class ="col-md-4">
+								<div id="available act header" class="call-header">Act Available</div>
+								<div ng-repeat="user in availableActUsers">moo{{user.name}}</div>
+							</div>
+							<div id="on call acts" class="col-md-8">
+								<div id="on call act header" class="call-header">Act On Call</div>
+								<div ng-repeat="user in onCallActUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+							</div>
+						</div>
 					</div>
+					<div class="col-md-4">
+						<div id=picture>
+							<img src="img/holder"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">Last accessed: {{usersLastAccessed}}</div>
 				</div>
 			</div>
 		</div>
