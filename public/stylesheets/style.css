@@ -21,5 +21,13 @@ a {
 }
 
 .call-header {
-	border: 1px;
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid black;
+}
+
+#main-row {
+	padding-top: 10px;
 }
