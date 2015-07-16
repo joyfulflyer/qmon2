@@ -23,7 +23,6 @@ dbWrapper.connect(function(err) {
 		console.log('Error '+ err);
 	} else {
 		console.log("completed connection");
-		console.log(dbWrapper);
 	}
 });
 module.exports = dbWrapper;

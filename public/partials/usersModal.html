@@ -1,0 +1,19 @@
+<div class="modal fade" id="usersModal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">where am I</span></button>
+			</div>
+			<div class="modal-body" ng-controller="UserCtrl">
+				<div ng-repeat="user in users">
+					<span>{{user}}</span>
+				</div>
+			</div>
+			<div class="modal footer">
+				entry forms
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

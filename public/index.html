@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="qmon">
+	<head>
+		<title>Qmon2</title>
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" href="bower_components/ag-grid/dist/angular-grid.css">
+		
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/ag-grid/dist/angular-grid.js"></script>
+		<script src="javascripts/controllers.js"></script>
+		<script src="javascripts/app.js"></script>
+		<script src="javascripts/filters.js"></script>
+	</head>
+	
+	
+	<!-- Modals -->
+	
+	<div class="modal fade" id="usersModal" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body" ng-controller="UserCtrl">
+					<div ag-grid="gridOptions" style="height: 200px"></div>					<div></div>
+					<div>
+						<form>
+						 	<input type="text" ng-model="name" placeholder="Name">
+						 	<select name="type" ng-model="type">
+						 		<option value=1>Support</option>
+						 		<option value=2>ACT</option>
+					 		</select>
+						 	<input type="text" ng-model="external_id" placeholder="external id">
+						 	<button type="submit" class='btn btn-primary' ng-click="addUser(name, type, external_id)">Save</button>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- END MODALS -->
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8">
+					<div ng-controller="QueueCtrl" ng-class="{flash: flash}">
+						<span id="queue">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</span><br>
+						<small>Queue last accessed: {{lastAccessed}}</small>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#usersModal">Edit Users</button>
+				</div>
+			</div>
+			<div ng-controller="UserCtrl">
+				<div class="row" id="main-row">
+					<div class="col-md-4" id="support">
+						<div class="row">
+							<div id="available support" class="col-md-4">
+								<div id="available support header" class="call-header">Agent Available</div>
+								<div ng-repeat="user in availableSupportUsers">{{user.name}}</div>
+							</div>
+							<div id="on call support" class="col-md-8">
+								<div id="on call support header" class="call-header">Agent On Call</div>
+								<div ng-repeat="user in onCallSupportUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4" id="acts">
+					<!-- This and above are the same except for the arrays they use, can I replace with one? -->
+						<div class="row">
+							<div id="available acts" class ="col-md-4">
+								<div id="available act header" class="call-header">Act Available</div>
+								<div ng-repeat="user in availableActUsers">moo{{user.name}}</div>
+							</div>
+							<div id="on call acts" class="col-md-8">
+								<div id="on call act header" class="call-header">Act On Call</div>
+								<div ng-repeat="user in onCallActUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div id=picture>
+							<img src="img/holder"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">Last accessed: {{usersLastAccessed}}</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

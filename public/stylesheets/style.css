@@ -6,3 +6,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+#queuetime {
+	color: #fff;
+	font-size: 1.2em;
+}
+
+#queue {
+	font-size: 3.5em;
+}
+
+.flash {
+	background-color: #FFFF00;
+}
+
+.call-header {
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid black;
+}
+
+#main-row {
+	padding-top: 10px;
+}
