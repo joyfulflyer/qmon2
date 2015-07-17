@@ -91,13 +91,25 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 		$scope.gridOptions = {
 			columnDefs: [
-				{headerName: "Name", field: "name", editable: true, width: 200},
-				{headerName: "Role", field: "type", width: 50},
+				{headerName: "Name", field: "name", editable: true, width: 200, editable: false},
+				{
+					headerName: "Role",
+					field: "type",
+					cellRenderer: function(params) {
+						if (params.value == 1) {
+							return 'Support';
+						} else if (params.value == 2) {
+							return 'Act';
+						}
+					},
+					width: 75,
+					editable: false
+				},
 				{headerName: "External ID", field: "external_id", width: 100},
 				{
-					headerName: '', 
+					headerName: '',
 					templateUrl: 'partials/userEditButtons.html',
-					enableCellEdit: false, 
+					editable: false,
 					sortable: false,
 					width: 112 // Determined experimentally
 				}
