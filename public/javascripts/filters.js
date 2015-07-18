@@ -31,14 +31,10 @@ qmonFilters.filter('on_call', function() {
 	};
 });
 
-qmonFilters.filter('timeSinceCall', function() {
+qmonFilters.filter('formatSeconds', function() {
 	return function(input) {
-		var timeNow = new Date();
-		var msOnCall = timeNow - Date.parse(input);
-
-		var sec = Math.floor(msOnCall/1000);
-		var min = Math.floor(sec/60);
-		var secAfterMin = Math.floor(sec%60);
+		var min = Math.floor(input/60);
+		var secAfterMin = Math.floor(input%60);
 		if (secAfterMin < 10) {
 			secAfterMin = '0' + secAfterMin; // I can't believe I can do this
 		}
@@ -46,8 +42,18 @@ qmonFilters.filter('timeSinceCall', function() {
 		if (min > 0) {
 			return min + ':' + secAfterMin;
 		} else {
-			return '00:' + sec;
+			return '00:' + input;
 		}
+	}
+})
+
+qmonFilters.filter('timeSinceCall', function() {
+	return function(input) {
+		var timeNow = new Date();
+		var msOnCall = timeNow - Date.parse(input);
+		return Math.floor(msOnCall/1000);
+
+		
 
 	//	return msOnCall/1000;
 	};
