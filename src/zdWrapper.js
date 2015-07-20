@@ -116,6 +116,68 @@ var getUserStatus = function() {
 			})
 		}
 	});
+}
+
+var getVoicemailStatus = function() {
+	var voicemailOptions = {
+		hostname: zdWrapper.hostname,
+		auth: zdWrapper.auth,
+		path: zdWrapper.basePath + '/search.json?query=via:voicemail+group:Support+status:new',
+		headers: zdWrapper.headers
+	};
+	https.get(voicemailOptions, function(response) {
+		var content = "";
+		response.on('data', function (chunk) {
+			content += chunk;
+		});
+		response.on('end', function () {
+			console.log(content);
+			content = JSON.parse(content);
+			var numVM = content.count;
+			if (numVM == 100) {
+				numVM = '100+';
+			}
+			zdWrapper.voicemails = numVM;
+		});
+		response.on('error', function() {
+			console.log('Error getting voicmail response');
+			console.log(error);
+		})
+	}).on('error', function(err) {
+		console.log('Error getting voicemail status');
+		console.log(err);
+	});
+}
+
+var getEmailStatus = function() {
+	var emailOptions = {
+		hostname: zdWrapper.hostname,
+		auth: zdWrapper.auth,
+		path: zdWrapper.basePath + '/search.json?query=via:email+group:Support+status:new+-voicemail',
+		headers: zdWrapper.headers
+	};
+	https.get(emailOptions, function(response) {
+		var content = "";
+		response.on('data', function (chunk) {
+			content += chunk;
+		});
+		response.on('end', function () {
+			console.log(content);
+			content = JSON.parse(content);
+			var numEM = content.count;
+			if (numEM == 100) {
+				numEM = '100+'.;
+			}
+			zdWrapper.emails = numEM;
+		});
+		response.on('error', function() {
+			console.log('Error getting email response');
+			console.log(error);
+		})
+	}).on('error', function(err) {
+		console.log('Error getting email status');
+		console.log(err);
+	});
 
 }
 
