@@ -15,6 +15,8 @@ server.listen(8080, function() {
 
 // [0].zendesk.com, username, api key
 zdWrapper.connect(secrets.org, secrets.user, secrets.key, function(err) {
-	console.log(err);
+	if (err) {
+		console.log(err);
+	}
 })
 

@@ -25,7 +25,8 @@ zdWrapper.connect = function(org, user, key, callback) {
 	console.log(this);
 	startPollingQueueStatus();
 //	startPollingUserStatus();
-	var userPoll = setInterval(getUserStatus, 5000);;
+	var userPoll = setInterval(getUserStatus, 5000);
+	var emailVMPoll = setInterval(getEmailAndVoicemailStatus, 2500);
 	callback();
 }
 
@@ -75,7 +76,6 @@ var getUserStatus = function() {
 			throw new Error('error getting users from database:' + err);
 		} else {
 //			allUsers = rows;
-
 			rows.forEach(function(currentUser, index) {
 				var options = {
 					hostname: zdWrapper.hostname,
@@ -92,7 +92,7 @@ var getUserStatus = function() {
 						if (response.statusCode < 400) {
 							content = JSON.parse(content);
 							if (content.availability.status != currentUser.status) {
-								console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
+				//				console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
 								var timeNow = new Date();
 				//				timeNow = timeNow.getTime(); // ensure UTC
 								dbSession.update('users', {
@@ -102,9 +102,9 @@ var getUserStatus = function() {
 									console.log('timestamp: ' + timeNow);
 								});
 							} else {
-								console.log('statuses matched ' + currentUser.status);
+			//					console.log('statuses matched ' + currentUser.status);
 							}
-						} 
+						}
 					});
 					response.on('error', function(err) {
 						console.log('got error: ' + error);
@@ -116,6 +116,11 @@ var getUserStatus = function() {
 			})
 		}
 	});
+}
+
+var getEmailAndVoicemailStatus = function() {
+	getVoicemailStatus();
+	getEmailStatus();
 }
 
 var getVoicemailStatus = function() {
@@ -131,7 +136,6 @@ var getVoicemailStatus = function() {
 			content += chunk;
 		});
 		response.on('end', function () {
-			console.log(content);
 			content = JSON.parse(content);
 			var numVM = content.count;
 			if (numVM == 100) {
@@ -162,11 +166,10 @@ var getEmailStatus = function() {
 			content += chunk;
 		});
 		response.on('end', function () {
-			console.log(content);
 			content = JSON.parse(content);
 			var numEM = content.count;
 			if (numEM == 100) {
-				numEM = '100+'.;
+				numEM = '100+';
 			}
 			zdWrapper.emails = numEM;
 		});

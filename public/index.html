@@ -56,7 +56,10 @@
 			<div class="row">
 				<div class="col-md-8">
 					<div ng-controller="QueueCtrl" ng-class="{flash: flash}">
-						<span id="queue">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</span><br>
+						<span id="queue" class="queue">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</span>
+						<br>
+						<span id="vm" class="queue">Email: {{emails}} VM: {{voicemails}}</span>
+						<br>
 						<small>Queue last accessed: {{lastAccessed}}</small>
 					</div>
 				</div>
