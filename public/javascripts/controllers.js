@@ -77,8 +77,6 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 				type: type || 1,
 				external_id: external_id
 			};
-			console.log('adding user');
-		//	console.log(user);
 			$http.post('/users', u).success(function (data, status, headers, config) {
 				console.log(data);
 				getLatestUserData();
@@ -121,9 +119,6 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 			enableColResize: true,
 			enableCellSelection: false
 		};
-
-
-		
 	}
 ]);
 
@@ -138,7 +133,8 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 					$scope.callers = data.current_queue_activity.calls_waiting;
 					$scope.waitTime = data.current_queue_activity.longest_wait_time;
 					$scope.averageTime = data.current_queue_activity.average_wait_time;
-
+					$scope.voicemails = data.vm;
+					$scope.emails = data.email;
 					if (($scope.callers > 4 || $scope.waitTime > 300) && $scope.flash == false) {
 						$scope.flash = true;
 					} else {
@@ -147,7 +143,6 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 				}
 			}).error(function(data, status) {
 				console.log('got error: ' + status);
-//				clearInterval(queuePoll); // stop polling as soon as there is a problem
 			});
 		};
 		poll();

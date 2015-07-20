@@ -25,7 +25,8 @@ zdWrapper.connect = function(org, user, key, callback) {
 	console.log(this);
 	startPollingQueueStatus();
 //	startPollingUserStatus();
-	var userPoll = setInterval(getUserStatus, 5000);;
+	var userPoll = setInterval(getUserStatus, 5000);
+	var emailVMPoll = setInterval(getEmailAndVoicemailStatus, 2500);
 	callback();
 }
 
@@ -75,7 +76,6 @@ var getUserStatus = function() {
 			throw new Error('error getting users from database:' + err);
 		} else {
 //			allUsers = rows;
-
 			rows.forEach(function(currentUser, index) {
 				var options = {
 					hostname: zdWrapper.hostname,
@@ -92,7 +92,7 @@ var getUserStatus = function() {
 						if (response.statusCode < 400) {
 							content = JSON.parse(content);
 							if (content.availability.status != currentUser.status) {
-								console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
+				//				console.log('from zendesk: ' + content.availability.status + ' Stored:' + currentUser.status + ' User: ' + currentUser.name);
 								var timeNow = new Date();
 				//				timeNow = timeNow.getTime(); // ensure UTC
 								dbSession.update('users', {
@@ -102,9 +102,9 @@ var getUserStatus = function() {
 									console.log('timestamp: ' + timeNow);
 								});
 							} else {
-								console.log('statuses matched ' + currentUser.status);
+			//					console.log('statuses matched ' + currentUser.status);
 							}
-						} 
+						}
 					});
 					response.on('error', function(err) {
 						console.log('got error: ' + error);
@@ -115,6 +115,71 @@ var getUserStatus = function() {
 				});
 			})
 		}
+	});
+}
+
+var getEmailAndVoicemailStatus = function() {
+	getVoicemailStatus();
+	getEmailStatus();
+}
+
+var getVoicemailStatus = function() {
+	var voicemailOptions = {
+		hostname: zdWrapper.hostname,
+		auth: zdWrapper.auth,
+		path: zdWrapper.basePath + '/search.json?query=via:voicemail+group:Support+status:new',
+		headers: zdWrapper.headers
+	};
+	https.get(voicemailOptions, function(response) {
+		var content = "";
+		response.on('data', function (chunk) {
+			content += chunk;
+		});
+		response.on('end', function () {
+			content = JSON.parse(content);
+			var numVM = content.count;
+			if (numVM == 100) {
+				numVM = '100+';
+			}
+			zdWrapper.voicemails = numVM;
+		});
+		response.on('error', function() {
+			console.log('Error getting voicmail response');
+			console.log(error);
+		})
+	}).on('error', function(err) {
+		console.log('Error getting voicemail status');
+		console.log(err);
+	});
+}
+
+var getEmailStatus = function() {
+	var emailOptions = {
+		hostname: zdWrapper.hostname,
+		auth: zdWrapper.auth,
+		path: zdWrapper.basePath + '/search.json?query=via:email+group:Support+status:new+-voicemail',
+		headers: zdWrapper.headers
+	};
+	https.get(emailOptions, function(response) {
+		var content = "";
+		response.on('data', function (chunk) {
+			content += chunk;
+		});
+		response.on('end', function () {
+			content = JSON.parse(content);
+			var numEM = content.count;
+			if (numEM == 100) {
+				numEM = '100+';
+			}
+			zdWrapper.emails = numEM;
+		});
+		response.on('error', function() {
+			console.log('Error getting email response');
+			console.log(error);
+		})
+	}).on('error', function(err) {
+		console.log('Error getting email status');
+		console.log(err);
 	});
 
 }
