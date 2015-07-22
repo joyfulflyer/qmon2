@@ -56,7 +56,9 @@
 			<div class="row">
 				<div class="col-md-8">
 					<div ng-controller="QueueCtrl" ng-class="{flashYellow: flash, flashRed: flashRed}">
-						<span id="queue" class="queue">Callers in Queue: {{callers}} Wait time: {{waitTime | formatWaitTime}} Average Wait: {{averageTime | formatWaitTime}}</span>
+						<span id="queue" class="queue">Callers in Queue: {{callers}}
+						<br>
+						Wait time: {{waitTime | formatWaitTime}} Average Wait: {{averageTime | formatWaitTime}}</span>
 						<br>
 						<span id="vm" class="queue">Email: {{emails}} VM: {{voicemails}}</span>
 						<br>
@@ -78,7 +80,7 @@
 							</div>
 							<div id="on call support" class="col-md-8">
 								<div id="on call support header" class="call-header">Agent<br>On Call</div>
-								<div ng-repeat="user in onCallSupportUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+								<div ng-repeat="user in onCallSupportUsers">{{user.name}} - {{ user.call_start | timeSinceCall }}</div>
 							</div>
 						</div>
 					</div>
@@ -91,7 +93,7 @@
 							</div>
 							<div id="on call acts" class="col-md-8">
 								<div id="on call act header" class="call-header">Act<br>On Call</div>
-								<div ng-repeat="user in onCallActUsers">{{user.name}}: {{ user.call_start | timeSinceCall }}</div>
+								<div ng-repeat="user in onCallActUsers">{{user.name}} - {{ user.call_start | timeSinceCall }}</div>
 							</div>
 						</div>
 					</div>
