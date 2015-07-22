@@ -58,7 +58,9 @@
 					<div ng-controller="QueueCtrl" ng-class="{flashYellow: flash, flashRed: flashRed}">
 						<span id="queue" class="queue">Callers in Queue: {{callers}}
 						<br>
-						Wait time: {{waitTime | formatWaitTime}} Average Wait: {{averageTime | formatWaitTime}}</span>
+						Wait time: {{waitTime | formatWaitTime}}
+						<br>
+						Average Wait: {{averageTime | formatWaitTime}}</span>
 						<br>
 						<span id="vm" class="queue">Email: {{emails}} VM: {{voicemails}}</span>
 						<br>
