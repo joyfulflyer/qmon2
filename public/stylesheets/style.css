@@ -36,3 +36,12 @@ a {
 .picture {
 	max-width:100%;
 }
+
+.ag-header-viewport {
+	width: 100%;
+}
+
+.ag-body-container {
+	width: 100%;
+	min-width: 112;
+}

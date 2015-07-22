@@ -89,7 +89,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 		$scope.gridOptions = {
 			columnDefs: [
-				{headerName: "Name", field: "name", editable: true, width: 200, editable: false},
+				{headerName: "Name", field: "name", editable: false, width: '30%'},
 				{
 					headerName: "Role",
 					field: "type",
@@ -100,16 +100,17 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 							return 'Act';
 						}
 					},
-					width: 75,
+					width: "30%",
 					editable: false
 				},
-				{headerName: "External ID", field: "external_id", width: 100},
+				{headerName: "External ID", field: "external_id", width: "30%"},
 				{
 					headerName: '',
 					templateUrl: 'partials/userEditButtons.html',
 					editable: false,
 					sortable: false,
-					width: 112 // Determined experimentally
+					width: "10%"
+//					width: 112 // Determined experimentally
 				}
 			],
 			rowData: null,
