@@ -2,7 +2,7 @@
 <html ng-app="qmon">
 	<head>
 		<title>Qmon2</title>
-		
+
 		<meta http-equiv="refresh" content="1800">
 
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -56,7 +56,7 @@
 			<div class="row">
 				<div class="col-md-8">
 					<div ng-controller="QueueCtrl" ng-class="{flash: flash}">
-						<span id="queue" class="queue">Callers in Queue: {{callers}}. Wait time: {{waitTime}} Average Wait: {{averageTime}}</span>
+						<span id="queue" class="queue">Callers in Queue: {{callers}} Wait time: {{waitTime | formatWaitTime}} Average Wait: {{averageTime | formatWaitTime}}</span>
 						<br>
 						<span id="vm" class="queue">Email: {{emails}} VM: {{voicemails}}</span>
 						<br>
