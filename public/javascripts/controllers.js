@@ -135,10 +135,14 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 					$scope.averageTime = data.current_queue_activity.average_wait_time;
 					$scope.voicemails = data.vm;
 					$scope.emails = data.email;
-					if (($scope.callers > 4 || $scope.waitTime > 300) && $scope.flash == false) {
+					var flashing = $scope.flash || $scope.flashRed;
+					if (($scope.callers > 8 || $scope.waitTime > 600) && !flashing) {
+						$scope.flashRed = true;
+					} else if (($scope.callers > 4 || $scope.waitTime > 300) && !flashing) {
 						$scope.flash = true;
 					} else {
 						$scope.flash = false;
+						$scope.flashRed = false;
 					}
 				}
 			}).error(function(data, status) {

@@ -16,8 +16,12 @@ a {
 	font-size: 3.5em;
 }
 
-.flash {
+.flashYellow {
 	background-color: #FFFF00;
+}
+
+.flashRed {
+	background-color: #FF0000;
 }
 
 .call-header {
