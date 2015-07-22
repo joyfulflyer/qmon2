@@ -89,7 +89,7 @@ qmonControllers.controller('UserCtrl', ['$scope', '$http',
 		
 		$scope.gridOptions = {
 			columnDefs: [
-				{headerName: "Name", field: "name", editable: true, width: 200, editable: false},
+				{headerName: "Name", field: "name", editable: true, width: 200},
 				{
 					headerName: "Role",
 					field: "type",
