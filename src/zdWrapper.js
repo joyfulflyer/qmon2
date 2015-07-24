@@ -49,20 +49,21 @@ var startPollingQueueStatus = function() {
 			
 			response.on('end', function() {
 				//two methods of saving this
-				zdWrapper.queueStatus = JSON.parse(content);
-//				console.log(zdWrapper.queueStatus);
-//				callQueue.updateQueueInfo(zdWrapper.queueStatus, new Date());
-				zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
+				try {
+					zdWrapper.queueStatus = JSON.parse(content);
+					zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
+				} catch (err) {
+					// If we have an exception parsing, we log it but otherwise just move on.
+					console.log(err);
+				}
 			});
-			
 			response.on('error', function(err) {
 				console.log('got an error during get');
 				console.log(err);
 			});
-			
 		}).on('error', function(error) {
 			console.log('Error while calling queue activity: ' + error.message);
-		});	
+		});
 	}
 	poll();
 	var queuePoll = setInterval(poll, 1000); // save the variable to shut it off
