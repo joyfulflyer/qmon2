@@ -55,6 +55,8 @@ var startPollingQueueStatus = function() {
 				} catch (err) {
 					// If we have an exception parsing, we log it but otherwise just move on.
 					console.log(err);
+					console.log('response: ');
+					console.log(content);
 				}
 			});
 			response.on('error', function(err) {
