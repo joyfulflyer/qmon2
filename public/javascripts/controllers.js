@@ -155,8 +155,7 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 ]);
 
 qmonControllers.controller('backgroundCtrl', ['$scope', function ($scope) {
-	//$scope.black = false;
 	$scope.switchBackground = function() {
-		$scope.black = !$scope.black;
+		$scope.white = !$scope.white;
 	};
 }]);

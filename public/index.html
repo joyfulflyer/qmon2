@@ -51,7 +51,7 @@
 	
 	<!-- END MODALS -->
 
-	<body ng-controller="backgroundCtrl" ng-class="{blackBackground: black}">
+	<body ng-controller="backgroundCtrl" ng-class="{whiteBackground: white}">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8">
@@ -105,10 +105,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div id="bottom-row" class="row">
 					<div class="col-md-10">Last accessed: {{usersLastAccessed}}</div>
 					<div class="col-md-2">
-						<button class="btn btn-sm pull-right" ng-click="switchBackground()">Switch backgrounds</button>
+						<button class="btn btn-default btn-sm pull-right" ng-click="switchBackground()">Switch backgrounds</button>
 					</div>
 				</div>
 			</div>
