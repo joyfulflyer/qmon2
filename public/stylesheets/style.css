@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+  color: white;
 }
 
 a {
@@ -18,10 +20,12 @@ a {
 
 .flashYellow {
 	background-color: #FFFF00;
+	color: black;
 }
 
 .flashRed {
 	background-color: #FF0000;
+	color: black;
 }
 
 .call-header {
@@ -37,6 +41,15 @@ a {
 	font-size: 18px;
 }
 
+#bottom-row {
+	padding-top: 5px;
+}
+
 .picture {
 	max-width:100%;
+}
+
+.whiteBackground {
+	background-color: white;
+	color: black;
 }
