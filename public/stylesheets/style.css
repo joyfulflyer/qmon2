@@ -40,3 +40,8 @@ a {
 .picture {
 	max-width:100%;
 }
+
+.blackBackground {
+	background-color: black;
+	color: white;
+}

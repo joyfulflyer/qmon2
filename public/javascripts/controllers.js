@@ -153,3 +153,10 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 		var queuePoll = setInterval(poll, 1000);
 	}
 ]);
+
+qmonControllers.controller('backgroundCtrl', ['$scope', function ($scope) {
+	//$scope.black = false;
+	$scope.switchBackground = function() {
+		$scope.black = !$scope.black;
+	};
+}]);
