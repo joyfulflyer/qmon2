@@ -5,6 +5,7 @@
 var qmon = angular.module('qmon', [
   'ngRoute',
   "angularGrid",
+  'ngCookies',
   
   'qmonControllers',
   'qmonFilters'

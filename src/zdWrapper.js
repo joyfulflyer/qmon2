@@ -50,8 +50,12 @@ var startPollingQueueStatus = function() {
 			response.on('end', function() {
 				//two methods of saving this
 				try {
-					zdWrapper.queueStatus = JSON.parse(content);
-					zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
+					if (response.statusCode < 400) {
+						zdWrapper.queueStatus = JSON.parse(content);
+						zdWrapper.lastQueueCall = new Date(); // we store the last time we got data
+					} else {
+						console.log(response);
+					}
 				} catch (err) {
 					// If we have an exception parsing, we log it but otherwise just move on.
 					console.log(err);

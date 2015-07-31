@@ -154,8 +154,19 @@ qmonControllers.controller('QueueCtrl', ['$scope', '$http',
 	}
 ]);
 
-qmonControllers.controller('backgroundCtrl', ['$scope', function ($scope) {
-	$scope.switchBackground = function() {
-		$scope.white = !$scope.white;
+qmonControllers.controller('backgroundCtrl', ['$scope', '$cookies',
+	function ($scope, $cookies) {
+			var BACKGROUND = 'background';
+			var WHITE = 'white';
+		if ($cookies.get(BACKGROUND) == WHITE) {
+			$scope.white = true;
+		}
+		$scope.switchBackground = function() {
+			$scope.white = !$scope.white;
+			if ($scope.white) {
+				$cookies.put(BACKGROUND, WHITE);
+			} else {
+				$cookies.put(BACKGROUND, 'black');
+			}
 	};
 }]);
