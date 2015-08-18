@@ -134,7 +134,7 @@ var getVoicemailStatus = function() {
 	var voicemailOptions = {
 		hostname: zdWrapper.hostname,
 		auth: zdWrapper.auth,
-		path: zdWrapper.basePath + '/search.json?query=via:voicemail+group:Support+status:new',
+		path: zdWrapper.basePath + '/search.json?query=via:voicemail+group:BPRO+Support+status:new',
 		headers: zdWrapper.headers
 	};
 	https.get(voicemailOptions, function(response) {
@@ -164,7 +164,7 @@ var getEmailStatus = function() {
 	var emailOptions = {
 		hostname: zdWrapper.hostname,
 		auth: zdWrapper.auth,
-		path: zdWrapper.basePath + '/search.json?query=via:email+group:Support+status:new+-voicemail',
+		path: zdWrapper.basePath + '/search.json?query=via:email+group:BPRO+Support+status:new+-voicemail',
 		headers: zdWrapper.headers
 	};
 	https.get(emailOptions, function(response) {
